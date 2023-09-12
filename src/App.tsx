@@ -1,4 +1,4 @@
-import { Github, FileVideo } from 'lucide-react'
+import { Github, FileVideo, Upload } from 'lucide-react'
 import { Button } from "./components/ui/button";
 import { Separator } from './components/ui/separator';
 import { Textarea } from './components/ui/textarea';
@@ -81,6 +81,11 @@ export function App() {
                 placeholder="Inclua palavras-chave mencionadas no video separadas por vírgula (,)"
               />
             </div>
+
+            <Button type="submit" className="w-full">
+              Carregar video
+              <Upload className="w-4 h-4 ml-2" />
+            </Button>
           </form>
         </aside>
       </main>
