@@ -8,6 +8,10 @@ import { getFFmpeg } from "@/lib/ffmpeg"
 import { fetchFile } from "@ffmpeg/util"
 import { api } from "@/lib/axios"
 
+interface IVideoInputForm {
+  onVideoUploaded: (id: string) => void;
+}
+
 type Status = 'waiting' | 'converting' | 'uploading' | 'generating' | 'success'
 
 const statusMessages = {
@@ -17,7 +21,7 @@ const statusMessages = {
   success: 'Sucesso!',
 }
 
-export const VideoInputForm = () => {
+export const VideoInputForm = ({ onVideoUploaded }: IVideoInputForm) => {
   const [videoFile, setVideoFile] = useState<File | null>(null)
   const [status, setStatus] = useState<Status>('waiting')
   const promptInputRef = useRef<HTMLTextAreaElement>(null)
@@ -103,6 +107,8 @@ export const VideoInputForm = () => {
     })
 
     setStatus('success')
+
+    onVideoUploaded(videoId)
   }
 
   const previewURL = useMemo(() => {
