@@ -11,18 +11,24 @@ import { useState } from 'react';
 import { useCompletion } from 'ai/react'
 
 export function App() {
-  const [videoId, setVideoId] = useState<string | null>(null)
   const [temperature, setTemperature] = useState(0.5)
+  const [videoId, setVideoId] = useState<string | null>(null)
 
   const {
     input,
     setInput,
-    handleInputChange
+    handleInputChange,
+    handleSubmit,
+    completion,
+    isLoading,
   } = useCompletion({
     api: 'http://localhost:3333/ai/complete',
     body: {
       videoId,
       temperature,
+    },
+    headers: {
+      'Content-type': 'application/json',
     }
   })
 
@@ -57,7 +63,8 @@ export function App() {
             <Textarea 
               className="resize-none p-4 leading-relaxed"
               placeholder="Resultado gerado pela IA:" 
-              readOnly 
+              readOnly
+              value={completion}
             />
           </div>
 
@@ -73,7 +80,7 @@ export function App() {
 
           <Separator />
 
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label>Prompt</Label>
               <PromptSelect onPromptSelected={setInput} />
@@ -114,7 +121,7 @@ export function App() {
 
             <Separator />
 
-            <Button type="submit" className="w-full">
+            <Button disabled={isLoading} type="submit" className="w-full">
               Executar
               <Wand2 className="w-4 h-4 ml-2" />
             </Button>
