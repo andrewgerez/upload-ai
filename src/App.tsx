@@ -60,7 +60,8 @@ export function App() {
         <div className="flex flex-col flex-1 gap-4">
           <div className="grid grid-rows-2 gap-4 flex-1">
             <Textarea 
-              className="resize-none p-4 leading-relaxed"
+              className="resize-none p-4 leading-relaxed 
+              scrollbar scrollbar-thin scrollbar-track-secondary-DEFAULT scrollbar-thumb-secondary-foreground"
               placeholder="Inclua o prompt para a IA..."
               value={input}
               onChange={handleInputChange}
